@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://blqfj2q3y2i83"]
+[gd_scene load_steps=33 format=3 uid="uid://blqfj2q3y2i83"]
 
 [ext_resource type="Script" uid="uid://ctjamdpwdlff1" path="res://scripts/player.gd" id="1_cxr5p"]
 [ext_resource type="Texture2D" uid="uid://cvjrbdfuxrdjn" path="res://assets/Player_Assets/Player_Single_Sprites/Death.png" id="1_e80uo"]
@@ -45,6 +45,18 @@ region = Rect2(192, 0, 96, 96)
 [sub_resource type="AtlasTexture" id="AtlasTexture_rv870"]
 atlas = ExtResource("2_cxr5p")
 region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qu4a1"]
+atlas = ExtResource("1_e80uo")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70d11"]
+atlas = ExtResource("1_e80uo")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cw2d6"]
+atlas = ExtResource("1_e80uo")
+region = Rect2(0, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_efikj"]
 atlas = ExtResource("3_tdg3f")
@@ -138,6 +150,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_qu4a1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70d11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cw2d6")
+}],
+"loop": false,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_efikj")
 }, {
 "duration": 1.0,
@@ -186,13 +212,14 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_7wy67"]
 
 [node name="Player" type="CharacterBody2D"]
+scale = Vector2(2, 2)
 script = ExtResource("1_cxr5p")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1jgrc")
-animation = &"Die"
-frame_progress = 0.50159615
-offset = Vector2(20, -30)
+animation = &"Idle"
+speed_scale = 1.5
+offset = Vector2(21.5, -32.5)
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

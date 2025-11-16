@@ -15,7 +15,7 @@ scale = Vector2(2, 2)
 transform = Transform2D(2, 0, 0, 2, 0, 0)
 
 [node name="Player" parent="." instance=ExtResource("3_b121j")]
-position = Vector2(448, 611)
+position = Vector2(449, 591)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)
