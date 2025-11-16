@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-SignalBus="*res://SignalBus.gd"
-Score="*res://Score.gd"
+SignalBus="*res://scripts/SignalBus.gd"
+Score="*res://scripts/Score.gd"
 
 [rendering]
 
