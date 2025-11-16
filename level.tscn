@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://cp2gglygkfgil"]
+
+[ext_resource type="Script" uid="uid://4okqgof0ymse" path="res://level.gd" id="1_0b4ue"]
+[ext_resource type="PackedScene" uid="uid://b4cat76sp3utr" path="res://bg_parallax.tscn" id="1_vonw3"]
+[ext_resource type="PackedScene" uid="uid://blqfj2q3y2i83" path="res://Player.tscn" id="2_oi3di"]
+[ext_resource type="PackedScene" uid="uid://eqdvay6pfnk1" path="res://ground_1.tscn" id="4_0b4ue"]
+[ext_resource type="Script" uid="uid://brwkrtoivjcft" path="res://ground_spawner.gd" id="5_f2txt"]
+[ext_resource type="PackedScene" uid="uid://ojy6r80arses" path="res://ground_2.tscn" id="6_1ainy"]
+
+[node name="Level" type="Node"]
+script = ExtResource("1_0b4ue")
+
+[node name="bg" parent="." instance=ExtResource("1_vonw3")]
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_oi3di")]
+position = Vector2(448, 611)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="Ground_Spawner" type="Node" parent="."]
+script = ExtResource("5_f2txt")
+ground_scenes = Array[PackedScene]([ExtResource("4_0b4ue"), ExtResource("6_1ainy")])
+
+[node name="ground_1" parent="Ground_Spawner" instance=ExtResource("4_0b4ue")]
+position = Vector2(0, 647)

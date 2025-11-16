@@ -11,8 +11,14 @@ config_version=5
 [application]
 
 config/name="godot-wild-jam"
+run/main_scene="uid://cp2gglygkfgil"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+SignalBus="*res://SignalBus.gd"
+Score="*res://Score.gd"
 
 [rendering]
 
