@@ -3,9 +3,18 @@ extends CharacterBody2D
 var is_shooting = false
 var jumping = false
 var flip_sprite = false
+var jumping_enable = false
+var is_reloading = false
+var double_jump = false
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+var dash_speed = 9000.0
+var dash_counter = 2
+var double_jump_counter = 2
+var ammo_amount = 1.5
+var reload_rate = 1.0
+
+var SPEED = 300.0
+const JUMP_VELOCITY = -450.0
 
 func _ready() -> void:
 	$AnimatedSprite2D.play("Run")
@@ -15,27 +24,57 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	#Double Jump
+	if Input.is_action_just_pressed("ui_accept") and double_jump_counter > 0:
 		velocity.y = JUMP_VELOCITY
+		double_jump_counter -= 1
 		jumping = true
+	elif is_on_floor():
+		double_jump_counter = 2
+	
+	if Input.is_action_just_pressed("Shooting") and ammo_amount > 0:
+		is_shooting = true
+		#print_debug("Player Started Shooting", is_shooting)
+		await get_tree().create_timer(0.25).timeout
+		is_shooting = false
+		ammo_amount -= 0.1
+		#print_debug("Player Stopped Shooting", is_shooting)
+	elif ammo_amount <= 0:
+		print_debug("Player has ran out of ammo : ", ammo_amount)
 
+	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("ui_left", "ui_right")
 	if direction:
 		velocity.x = direction * SPEED
-		print_debug(direction)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		flip_sprite = true
-		print_debug(direction)
+	
+	#DASH MECHANIC
+	if dash_counter >= 0:
+		if direction == -1 and Input.is_action_just_released("Dash"):
+			velocity.x = direction * SPEED - dash_speed
+			dash_counter -= 1
+		elif direction == +1 and Input.is_action_just_released("Dash") :
+			velocity.x = direction * SPEED + dash_speed
+			dash_counter -= 1
+			
+	if is_on_floor() and Input.is_action_pressed("Reload") and ammo_amount <= 0 :
+		is_reloading = true
+		#print_debug("Reloading Started : ", is_reloading)
+		await get_tree().create_timer(1.0).timeout
+		is_reloading = false
+		ammo_amount = 1.5
+		print_debug("Reloading Stopped : ", is_reloading)
+		print_debug("Gun Loaded : ", ammo_amount)
 	
 	if direction == -1 :
 		flip_sprite = true
 	else :
 		flip_sprite = false
-
+	
 	move_and_slide()
 	animation_handler()
 	
@@ -48,8 +87,11 @@ func animation_handler() -> void:
 			$AnimatedSprite2D.flip_h = true
 		if is_on_floor():
 			$AnimatedSprite2D.play("Run")
-			print_debug("Running")
 		elif jumping == true :
 			$AnimatedSprite2D.play("Jump")
 			$AnimatedSprite2D.stop()
-			print_debug("Jumping")
+		if is_shooting == true: 
+			$AnimatedSprite2D.play("Shoot")
+		if is_reloading == true: 
+			$AnimatedSprite2D.speed_scale = 0.5
+			$AnimatedSprite2D.play("Reload")
