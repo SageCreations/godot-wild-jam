@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SignalBus="*res://scripts/SignalBus.gd"
 Score="*res://scripts/Score.gd"
+AirFilter="*res://scripts/air_filter.gd"
 
 [input]
 

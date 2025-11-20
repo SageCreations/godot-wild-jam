@@ -25,11 +25,11 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("ui_left", "ui_right")
 	if direction:
 		velocity.x = direction * SPEED
-		print_debug(direction)
+		#print_debug(direction)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		flip_sprite = true
-		print_debug(direction)
+		#print_debug(direction)
 	
 	if direction == -1 :
 		flip_sprite = true
@@ -48,8 +48,8 @@ func animation_handler() -> void:
 			$AnimatedSprite2D.flip_h = true
 		if is_on_floor():
 			$AnimatedSprite2D.play("Run")
-			print_debug("Running")
+			#print_debug("Running")
 		elif jumping == true :
 			$AnimatedSprite2D.play("Jump")
 			$AnimatedSprite2D.stop()
-			print_debug("Jumping")
+			#print_debug("Jumping")

@@ -1,0 +1,155 @@
+extends CharacterBody2D
+
+# exported variables
+@export var speed: float = 120.0
+@export var gravity: float = 1200.0
+@export var jump_velocity: float = -800.0
+var _should_jump: bool = false
+
+# interal ref of player for its location and a setter function to set in spawner script
+var _player: Node2D = null
+
+func set_player(p: Node2D):
+	_player = p
+
+# ref to child nodes of the enemy
+@onready var floor_ahead: RayCast2D = $FloorAhead
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+
+# State handling for enemy
+enum State {
+	IDLE,
+	RUN,
+	JUMP,
+	FALL,
+	ATTACK,
+	DEAD,
+}
+var state: State = State.RUN
+var facing_direction: int = 1 # 1 is right, -1 is left
+
+func _logic_idle(_delta: float) -> void:
+	velocity.x = 0.0
+
+func _logic_run(_delta: float) -> void:
+	var dx: float = _player.global_position.x - global_position.x
+	var dir: float = sign(dx)
+		
+	if dir == 0.0:
+		dir = 0.0
+	
+	if dir == 1.0:
+		position.x += 0.2
+	
+	velocity.x = dir * speed
+	
+	var ahead_offset_x: float = 20.0 * dir
+	floor_ahead.target_position = Vector2(ahead_offset_x, 52.0)
+	
+	if not floor_ahead.is_colliding():
+		_should_jump = true
+
+func _logic_jump(_delta: float) -> void:
+	velocity.y = jump_velocity
+	_should_jump = false
+
+func _logic_fall(_delta: float) -> void:
+	pass
+
+func _logic_attack(_delta: float) -> void:
+	pass
+
+func _logic_dead(_delta: float) -> void:
+	pass
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass
+
+
+func _apply_gravity(delta: float) -> void:
+	if not is_on_floor():
+		velocity.y += gravity * delta
+
+
+func _update_state() -> void:
+	if state == State.DEAD:
+		return
+	
+	if state == State.ATTACK:
+		pass
+	
+	if not is_on_floor():
+		state = State.FALL
+		return  # ground stuff isnt needed if in the air
+	
+	if _should_jump:
+		state = State.JUMP
+		return
+	
+	# ground state
+	#if abs(velocity.x) > 1.0:
+		#state = State.RUN
+	#else: 
+		#state = State.IDLE
+		
+	state = State.RUN
+
+
+func _update_direction() -> void:
+	if abs(velocity.x) > 0.1:
+		var new_dir: int = sign(velocity.x)
+		
+		if new_dir != 0 and new_dir != facing_direction:
+			facing_direction = new_dir
+			anim.flip_h = (facing_direction < 0)
+
+
+func _apply_state_logic(delta: float) -> void:
+	print(state)
+	match state:
+		State.IDLE:
+			_logic_idle(delta)
+		State.RUN:
+			_logic_run(delta)
+		State.JUMP:
+			_logic_jump(delta)
+		State.FALL:
+			_logic_fall(delta)
+		State.ATTACK:
+			_logic_attack(delta)
+		State.DEAD:
+			_logic_dead(delta)
+
+
+func _update_animation() -> void:
+	var target_anim: String = ""
+	
+	match state:
+		State.IDLE:
+			target_anim = "idle"
+		State.RUN:
+			target_anim = "run"
+		State.JUMP:
+			target_anim = "jump"
+		State.FALL:
+			target_anim = "jump"
+		State.ATTACK:
+			target_anim = "attack"
+		State.DEAD:
+			target_anim = "dead"
+	
+	if anim.animation != target_anim:
+		anim.play(target_anim)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	_apply_gravity(delta)
+	_update_state()
+	_update_direction()
+	_apply_state_logic(delta)
+	_update_animation()
+	
+	move_and_slide()
