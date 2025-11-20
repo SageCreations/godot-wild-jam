@@ -18,7 +18,6 @@ func _ready() -> void:
 	screen_size = get_window().size
 	new_game()
 	
-	
 func new_game() -> void:
 	$Player.position = PLAYER_START_POSITION
 	$Player.velocity = Vector2i(0, 0)

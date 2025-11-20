@@ -1,7 +1,8 @@
-[gd_scene load_steps=37 format=3 uid="uid://blqfj2q3y2i83"]
+[gd_scene load_steps=38 format=3 uid="uid://blqfj2q3y2i83"]
 
 [ext_resource type="Script" uid="uid://ctjamdpwdlff1" path="res://scripts/player.gd" id="1_cxr5p"]
 [ext_resource type="Texture2D" uid="uid://cvjrbdfuxrdjn" path="res://assets/Player_Assets/Player_Single_Sprites/Death.png" id="1_e80uo"]
+[ext_resource type="PackedScene" uid="uid://vmvm1c4aawtx" path="res://bullet.tscn" id="2_cw2d6"]
 [ext_resource type="Texture2D" uid="uid://f0nft4bha85p" path="res://assets/Player_Assets/Player_Single_Sprites/Idle.png" id="2_cxr5p"]
 [ext_resource type="Texture2D" uid="uid://biawbciv1xyih" path="res://assets/Player_Assets/Player_Single_Sprites/Special.png" id="3_70d11"]
 [ext_resource type="Texture2D" uid="uid://ctnua7sqho1u7" path="res://assets/Player_Assets/Player_Single_Sprites/Walk.png" id="3_tdg3f"]
@@ -255,6 +256,7 @@ animations = [{
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_cxr5p")
+bullet = ExtResource("2_cw2d6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1jgrc")
