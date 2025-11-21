@@ -21,18 +21,13 @@ size = Vector2(12338.5, 41)
 [node name="Level" type="Node"]
 script = ExtResource("1_2r41h")
 
-[node name="Player" parent="." instance=ExtResource("3_b121j")]
-
 [node name="bg" parent="." instance=ExtResource("2_klq6b")]
 scale = Vector2(2, 2)
 transform = Transform2D(2, 0, 0, 2, 0, 0)
 
-<<<<<<< HEAD
-=======
 [node name="Player" parent="." instance=ExtResource("3_b121j")]
 position = Vector2(449, 580)
 
->>>>>>> ac6a4001d98b43b5041faa1c8d81dab19297a8b0
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)
 
