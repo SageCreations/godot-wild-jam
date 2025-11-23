@@ -323,12 +323,16 @@ texture = ExtResource("1_htawj")
 
 [node name="ground_left" type="StaticBody2D" parent="."]
 position = Vector2(136.75, -7.5)
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ground_left"]
 position = Vector2(279.25, 0)
 shape = SubResource("RectangleShape2D_ypqmy")
 
 [node name="ground_right" type="StaticBody2D" parent="."]
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ground_right"]
 position = Vector2(1728, -7.5)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=65 format=3 uid="uid://c4bt7djq8rf5h"]
+[gd_scene load_steps=66 format=3 uid="uid://c4bt7djq8rf5h"]
 
 [ext_resource type="Script" uid="uid://dayfmixua6enf" path="res://scripts/enemy.gd" id="1_je0fm"]
 [ext_resource type="Texture2D" uid="uid://5cc1cm6ntfj4" path="res://assets/Zombies/Zombie Woman/Attack_1.png" id="2_r1okp"]
+[ext_resource type="PackedScene" uid="uid://c1vsnyk5kbf8h" path="res://scenes/power_ups/2X_mod.tscn" id="2_w1pbu"]
 [ext_resource type="Texture2D" uid="uid://bkf6oub6mkd5r" path="res://assets/Zombies/Zombie Woman/Attack_2.png" id="3_je0fm"]
 [ext_resource type="Texture2D" uid="uid://cta7qa6rt5ejy" path="res://assets/Zombies/Zombie Woman/Attack_3.png" id="4_w1pbu"]
 [ext_resource type="Texture2D" uid="uid://c51vk23loub3r" path="res://assets/Zombies/Zombie Woman/Dead.png" id="5_gpyty"]
@@ -229,7 +230,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack_1",
-"speed": 5.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -295,9 +296,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_o7ol5")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt",
-"speed": 5.0
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -423,11 +424,12 @@ size = Vector2(20, 62.666664)
 
 [node name="Enemy3" type="CharacterBody2D"]
 scale = Vector2(1.2, 1.2)
-collision_layer = 3
-collision_mask = 3
+collision_layer = 2
+collision_mask = 4
 script = ExtResource("1_je0fm")
 pts_awarded = 20
 health = 2
+powerup_drops = Array[PackedScene]([ExtResource("2_w1pbu")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -440,10 +442,11 @@ shape = SubResource("RectangleShape2D_f5iek")
 
 [node name="FloorAhead" type="RayCast2D" parent="."]
 target_position = Vector2(0, 52)
+collision_mask = 4
 
 [node name="Area2D" type="Area2D" parent="." groups=["Enemies"]]
 collision_layer = 16384
-collision_mask = 16384
+collision_mask = 16385
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-2.6666667, 16.666668)

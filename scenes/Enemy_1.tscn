@@ -1,7 +1,8 @@
-[gd_scene load_steps=81 format=3 uid="uid://dp1cwm8r0wdrg"]
+[gd_scene load_steps=82 format=3 uid="uid://dp1cwm8r0wdrg"]
 
 [ext_resource type="Texture2D" uid="uid://u6gh754clae1" path="res://assets/Zombies/Wild Zombie/Attack_1.png" id="1_c4ae5"]
 [ext_resource type="Script" uid="uid://dayfmixua6enf" path="res://scripts/enemy.gd" id="1_f5iek"]
+[ext_resource type="PackedScene" uid="uid://c1vsnyk5kbf8h" path="res://scenes/power_ups/2X_mod.tscn" id="2_amd68"]
 [ext_resource type="Texture2D" uid="uid://2ofgid48bo1" path="res://assets/Zombies/Wild Zombie/Idle.png" id="2_dtrki"]
 [ext_resource type="Texture2D" uid="uid://2s8dbvbnjebo" path="res://assets/Zombies/Wild Zombie/Attack_2.png" id="2_f12xb"]
 [ext_resource type="Texture2D" uid="uid://0vcomkkmwshp" path="res://assets/Zombies/Wild Zombie/Attack_3.png" id="3_f5iek"]
@@ -293,7 +294,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack_1",
-"speed": 5.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -403,9 +404,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_nl4b4")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt",
-"speed": 5.0
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -536,14 +537,17 @@ size = Vector2(20, 46)
 [node name="Enemy1" type="CharacterBody2D"]
 scale = Vector2(1.5, 1.5)
 collision_layer = 2
-collision_mask = 3
+collision_mask = 4
 script = ExtResource("1_f5iek")
 pts_awarded = 30
+powerup_drops = Array[PackedScene]([ExtResource("2_amd68")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_u0utx")
-animation = &"attack_3"
+animation = &"attack_1"
+frame = 3
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 25)
@@ -551,10 +555,11 @@ shape = SubResource("RectangleShape2D_f5iek")
 
 [node name="FloorAhead" type="RayCast2D" parent="."]
 target_position = Vector2(0, 52)
+collision_mask = 4
 
 [node name="Area2D" type="Area2D" parent="." groups=["Enemies"]]
 collision_layer = 16384
-collision_mask = 16384
+collision_mask = 16385
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 25)
