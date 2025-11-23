@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cp2gglygkfgil"]
+[gd_scene load_steps=14 format=3 uid="uid://cp2gglygkfgil"]
 
 [ext_resource type="Script" uid="uid://4okqgof0ymse" path="res://scripts/level.gd" id="1_2r41h"]
 [ext_resource type="PackedScene" uid="uid://b4cat76sp3utr" path="res://scenes/bg_parallax.tscn" id="2_klq6b"]
@@ -11,20 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://dp1cwm8r0wdrg" path="res://scenes/Enemy_1.tscn" id="9_olg7q"]
 [ext_resource type="PackedScene" uid="uid://cixwkf3iqb5vu" path="res://scenes/Enemy_2.tscn" id="10_t1rx8"]
 [ext_resource type="PackedScene" uid="uid://c4bt7djq8rf5h" path="res://scenes/Enemy_3.tscn" id="11_t1rx8"]
-[ext_resource type="PackedScene" uid="uid://bknlyvh5bc3wv" path="res://scenes/UI/DecayBar.tscn" id="12_8iemx"]
-
-[sub_resource type="GDScript" id="GDScript_t1rx8"]
-script/source = "extends Camera2D
-"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b121j"]
 size = Vector2(45, 1119)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8c41q"]
 size = Vector2(12338.5, 41)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_t1rx8"]
-size = Vector2(19, 643)
 
 [node name="Level" type="Node"]
 script = ExtResource("1_2r41h")
@@ -38,7 +30,6 @@ position = Vector2(472, 565)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)
-script = SubResource("GDScript_t1rx8")
 
 [node name="garbage_collector_behind" type="Area2D" parent="Camera2D"]
 script = ExtResource("4_klq6b")
@@ -53,40 +44,6 @@ script = ExtResource("4_klq6b")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/garbage_collector_below"]
 position = Vector2(1137.75, 582)
 shape = SubResource("RectangleShape2D_8c41q")
-
-[node name="Left_Wall" type="StaticBody2D" parent="Camera2D" groups=["Walls"]]
-collision_layer = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Left_Wall"]
-position = Vector2(-576.5, 0.5)
-shape = SubResource("RectangleShape2D_t1rx8")
-
-[node name="Right_Wall" type="StaticBody2D" parent="Camera2D" groups=["Walls"]]
-collision_layer = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Right_Wall"]
-position = Vector2(554, 1)
-shape = SubResource("RectangleShape2D_t1rx8")
-
-[node name="UI" type="Control" parent="Camera2D"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -576.0
-offset_top = -324.0
-offset_right = -576.0
-offset_bottom = -324.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="DecayBar" parent="Camera2D/UI" instance=ExtResource("12_8iemx")]
-layout_mode = 0
-offset_left = 21.000002
-offset_top = 10.0
-offset_right = 25.000002
-offset_bottom = 37.0
-scale = Vector2(37.839996, 1)
 
 [node name="Ground_Spawner" type="Node" parent="."]
 script = ExtResource("4_8c41q")

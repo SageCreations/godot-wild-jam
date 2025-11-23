@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://cixwkf3iqb5vu"]
+[gd_scene load_steps=79 format=3 uid="uid://cixwkf3iqb5vu"]
 
 [ext_resource type="Script" uid="uid://dayfmixua6enf" path="res://scripts/enemy.gd" id="1_1ntyx"]
 [ext_resource type="Texture2D" uid="uid://cbwgpxo4olavi" path="res://assets/Zombies/Zombie Man/Attack_1.png" id="2_6twtw"]
@@ -286,7 +286,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mbj3w")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_1",
 "speed": 5.0
 }, {
@@ -303,7 +303,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_surso")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_2",
 "speed": 5.0
 }, {
@@ -323,7 +323,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kgw64")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_3",
 "speed": 5.0
 }, {
@@ -381,9 +381,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_la61f")
 }],
-"loop": true,
+"loop": false,
 "name": &"dead",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -516,14 +516,20 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f5iek"]
 size = Vector2(15.333334, 64)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ntyx"]
+size = Vector2(20, 63.333336)
+
 [node name="Enemy2" type="CharacterBody2D"]
-scale = Vector2(1.5, 1.5)
+scale = Vector2(1.2, 1.2)
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_1ntyx")
+health = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_tgkta")
-animation = &"walk"
+animation = &"attack_1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.9999998, 16)
@@ -531,3 +537,13 @@ shape = SubResource("RectangleShape2D_f5iek")
 
 [node name="FloorAhead" type="RayCast2D" parent="."]
 target_position = Vector2(0, 52)
+
+[node name="Area2D" type="Area2D" parent="." groups=["Enemies"]]
+collision_layer = 16384
+collision_mask = 16384
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2, 15.666668)
+shape = SubResource("RectangleShape2D_1ntyx")
+
+[connection signal="area_entered" from="Area2D" to="." method="_area_entered"]

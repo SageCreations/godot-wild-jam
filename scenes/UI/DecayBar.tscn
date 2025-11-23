@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bknlyvh5bc3wv"]
+
+[ext_resource type="Script" uid="uid://bdvh410syp6ev" path="res://scenes/UI/decay_bar.gd" id="1_jqpyq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jqpyq"]
+bg_color = Color(0.8235294, 0.84313726, 0, 0.36078432)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ax4j"]
+bg_color = Color(7.70092e-07, 0.6379034, 0.9466757, 1)
+
+[node name="DecayBar" type="ProgressBar"]
+offset_right = 1.0
+offset_bottom = 1.0
+theme_override_styles/background = SubResource("StyleBoxFlat_jqpyq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3ax4j")
+step = 1.0
+value = 90.0
+show_percentage = false
+script = ExtResource("1_jqpyq")

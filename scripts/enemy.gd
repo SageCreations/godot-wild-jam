@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
 # exported variables
+@export var pts_awarded: int = 10
+@export var health: int = 3
 @export var speed: float = 120.0
 @export var gravity: float = 1200.0
 @export var jump_velocity: float = -800.0
@@ -60,8 +62,16 @@ func _logic_attack(_delta: float) -> void:
 	pass
 
 func _logic_dead(_delta: float) -> void:
-	pass
+	velocity.x = 0
+	await anim.animation_finished
+	# TODO: randomize if powerup spawns or not
+	Score.add_points(pts_awarded)
+	queue_free()
 
+func _sub_health(amount: int) -> void:
+	health -= amount
+	if health <= 0:
+		state = State.DEAD
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -107,7 +117,6 @@ func _update_direction() -> void:
 
 
 func _apply_state_logic(delta: float) -> void:
-	print(state)
 	match state:
 		State.IDLE:
 			_logic_idle(delta)
@@ -153,3 +162,12 @@ func _process(delta: float) -> void:
 	_update_animation()
 	
 	move_and_slide()
+
+
+func _area_entered(area: Area2D) -> void:
+	#print_debug("area name: ", area.name)
+	if area.is_in_group("Bullets"):
+		if state != State.DEAD:
+			_sub_health(1)
+			area.queue_free()
+		

@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://dp1cwm8r0wdrg"]
+[gd_scene load_steps=81 format=3 uid="uid://dp1cwm8r0wdrg"]
 
 [ext_resource type="Texture2D" uid="uid://u6gh754clae1" path="res://assets/Zombies/Wild Zombie/Attack_1.png" id="1_c4ae5"]
 [ext_resource type="Script" uid="uid://dayfmixua6enf" path="res://scripts/enemy.gd" id="1_f5iek"]
@@ -291,7 +291,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ptwlt")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_1",
 "speed": 5.0
 }, {
@@ -308,7 +308,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7bm53")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_2",
 "speed": 5.0
 }, {
@@ -325,7 +325,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c2mfl")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_3",
 "speed": 5.0
 }, {
@@ -345,8 +345,8 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_v22rx")
 }],
-"loop": true,
-"name": &"death",
+"loop": false,
+"name": &"dead",
 "speed": 5.0
 }, {
 "frames": [{
@@ -530,15 +530,20 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f5iek"]
 size = Vector2(9.333334, 46)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_amd68"]
+size = Vector2(20, 46)
+
 [node name="Enemy1" type="CharacterBody2D"]
 scale = Vector2(1.5, 1.5)
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_f5iek")
+pts_awarded = 30
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_u0utx")
-animation = &"idle"
-frame_progress = 0.5445475
+animation = &"attack_3"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 25)
@@ -546,3 +551,13 @@ shape = SubResource("RectangleShape2D_f5iek")
 
 [node name="FloorAhead" type="RayCast2D" parent="."]
 target_position = Vector2(0, 52)
+
+[node name="Area2D" type="Area2D" parent="." groups=["Enemies"]]
+collision_layer = 16384
+collision_mask = 16384
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 25)
+shape = SubResource("RectangleShape2D_amd68")
+
+[connection signal="area_entered" from="Area2D" to="." method="_area_entered"]

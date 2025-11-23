@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ctjamdpwdlff1" path="res://scripts/player.gd" id="1_cxr5p"]
 [ext_resource type="Texture2D" uid="uid://cvjrbdfuxrdjn" path="res://assets/Player_Assets/Player_Single_Sprites/Death.png" id="1_e80uo"]
-[ext_resource type="PackedScene" uid="uid://vmvm1c4aawtx" path="res://bullet.tscn" id="2_cw2d6"]
+[ext_resource type="PackedScene" uid="uid://vmvm1c4aawtx" path="res://scenes/bullet.tscn" id="2_cw2d6"]
 [ext_resource type="Texture2D" uid="uid://f0nft4bha85p" path="res://assets/Player_Assets/Player_Single_Sprites/Idle.png" id="2_cxr5p"]
 [ext_resource type="Texture2D" uid="uid://biawbciv1xyih" path="res://assets/Player_Assets/Player_Single_Sprites/Special.png" id="3_70d11"]
 [ext_resource type="Texture2D" uid="uid://ctnua7sqho1u7" path="res://assets/Player_Assets/Player_Single_Sprites/Walk.png" id="3_tdg3f"]
@@ -202,7 +202,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Reload",
-"speed": 5.0
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -251,25 +251,32 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7wy67"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cw2d6"]
+size = Vector2(22.85714, 18.857143)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Players"]]
 scale = Vector2(2, 2)
+collision_mask = 9
 script = ExtResource("1_cxr5p")
 bullet = ExtResource("2_cw2d6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_1jgrc")
-animation = &"Gun_Jam"
-frame_progress = 0.18757477
-speed_scale = 1.5
+animation = &"Reload"
+frame_progress = 0.1949331
 offset = Vector2(21.5, -32.5)
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.9999995, -1.0000004)
 scale = Vector2(1.75, 1.75)
-shape = SubResource("CircleShape2D_7wy67")
+shape = SubResource("RectangleShape2D_cw2d6")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
+one_shot = true
+
+[node name="Shooting_Cooldown" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true

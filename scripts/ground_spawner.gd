@@ -13,9 +13,7 @@ func _ready() -> void:
 func _on_ground_needed() -> void:
 	var new_ground_scene : PackedScene = ground_scenes.pick_random()
 	var new_ground = new_ground_scene.instantiate()
+	add_child(new_ground)
 	spawn_x = spawn_x + screen_size.x*2
 	new_ground.position = Vector2i(spawn_x, 647)
-	add_child(new_ground)
-	
-	#call_deferred("new ground position: ", Vector2i(spawn_x, 647))
 	
