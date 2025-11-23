@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://dp1cwm8r0wdrg"]
+[gd_scene load_steps=85 format=3 uid="uid://dp1cwm8r0wdrg"]
 
 [ext_resource type="Texture2D" uid="uid://u6gh754clae1" path="res://assets/Zombies/Wild Zombie/Attack_1.png" id="1_c4ae5"]
 [ext_resource type="Script" uid="uid://dayfmixua6enf" path="res://scripts/enemy.gd" id="1_f5iek"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://c84j5ij8bosh5" path="res://assets/Zombies/Wild Zombie/Jump.png" id="8_sxwho"]
 [ext_resource type="Texture2D" uid="uid://cs4jvwvjjs8pl" path="res://assets/Zombies/Wild Zombie/Run.png" id="9_4y5og"]
 [ext_resource type="Texture2D" uid="uid://rjuuvoooe3bh" path="res://assets/Zombies/Wild Zombie/Walk.png" id="10_u0utx"]
+[ext_resource type="AudioStream" uid="uid://c8bu3cyv0jdbt" path="res://assets/sounds/Enemy_Attack(3).wav" id="15_sxwho"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uu736"]
 atlas = ExtResource("1_c4ae5")
@@ -566,5 +567,10 @@ collision_mask = 16385
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 25)
 shape = SubResource("RectangleShape2D_amd68")
+
+[node name="Attack_Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_sxwho")
+volume_db = 10.0
+pitch_scale = 0.7
 
 [connection signal="area_entered" from="Area2D" to="." method="_area_entered"]

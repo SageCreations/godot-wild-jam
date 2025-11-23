@@ -82,11 +82,12 @@ func _logic_attack(_delta: float) -> void:
 func _logic_dead(_delta: float) -> void:
 	velocity.x = 0
 	await anim.animation_finished
-	if _dead == false and rand >= 65:
-		var new_power_up_scene = powerup_drops.pick_random()
-		var power_up = new_power_up_scene.instantiate()
-		get_parent().add_child(power_up)
-		power_up.global_position = global_position
+	if _dead == false:
+		if rand >= 65:
+			var new_power_up_scene = powerup_drops.pick_random()
+			var power_up = new_power_up_scene.instantiate()
+			get_parent().add_child(power_up)
+			power_up.global_position = global_position
 		_dead = true
 	
 	if _player.double_points == true:
@@ -106,7 +107,11 @@ func _logic_hit(_delta: float) -> void:
 
 func _sub_health(amount: int) -> void:
 	health -= amount
+	$Attack_Sound.pitch_scale = 4.0
+	$Attack_Sound.play()
 	if health <= 0:
+		$Attack_Sound.pitch_scale = 0.5
+		$Attack_Sound.play()
 		state = State.DEAD
 
 
@@ -134,6 +139,7 @@ func _update_state() -> void:
 	if (global_position.x > _player.global_position.x - 50) and (global_position.x < _player.global_position.x + 50):
 		if _player.is_on_floor() and _player.is_hurt == false:
 			state = State.ATTACK
+			$Attack_Sound.play()
 			return
 	
 	if not is_on_floor():

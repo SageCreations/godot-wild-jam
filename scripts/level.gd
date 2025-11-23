@@ -3,6 +3,9 @@ extends Node
 const PLAYER_START_POSITION := Vector2i(448, 611)
 const CAMERA_START_POSITION := Vector2i(576, 324)
 
+@export var GameOver_Music: AudioStreamPlayer2D
+@export var Level_Music: AudioStreamPlayer2D
+
 @export var START_SPEED: float = 0.0
 @export var MAX_SPEED: float = 7.0
 var screen_size: Vector2i
@@ -34,6 +37,9 @@ func new_game() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if game_over: 
+		if Level_Music.playing == true:
+			Level_Music.stop()
+			GameOver_Music.play()
 		return
 	
 	# score accumilator

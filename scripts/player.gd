@@ -82,31 +82,41 @@ func _physics_process(delta: float) -> void:
 		AirFilter.sub_points(1)
 		state = State.JUMP
 	
-	if is_on_floor():
-		if Input.is_action_pressed("Reload") and ammo_count < max_ammo :
-			state = State.RELOAD
-			$AnimatedSprite2D.play("Reload")
-			reload_bar.visible = true
-			reload_timer.start(reload_rate)
-		else:
-			state = State.RUN
-			double_jump_counter = 1
-	
-	if Input.is_action_pressed("Shooting") and ammo_count > 0:
-		state = State.ATTACK
-		if $Shooting_Cooldown.is_stopped():
-			$AnimatedSprite2D.play("Shoot")
-			spawn_projectile()
-			ammo_count -= 1
-			$Shooting_Cooldown.start(fire_rate)
-	
-	# Get the input direction and handle the movement/deceleration.
+		# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("ui_left", "ui_right")
 	if direction:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = 0
+	
+	if is_on_floor():
+		if Input.is_action_pressed("Reload") and ammo_count < max_ammo and velocity.x == 0:
+			state = State.RELOAD
+			$AnimatedSprite2D.play("Reload")
+			$Click_Sound.pitch_scale = 0.6
+			$Click_Sound.play()
+			reload_bar.visible = true
+			reload_timer.start(reload_rate)
+		else:
+			state = State.RUN
+			double_jump_counter = 1
+	
+	if Input.is_action_pressed("Shooting") and ammo_count <= 0:
+		state = State.ATTACK
+		if $Shooting_Cooldown.is_stopped():
+			$Click_Sound.pitch_scale = 1.2
+			$Click_Sound.play()
+			$Shooting_Cooldown.start(fire_rate)
+	
+	if Input.is_action_pressed("Shooting") and ammo_count > 0:
+		state = State.ATTACK
+		if $Shooting_Cooldown.is_stopped():
+			$AnimatedSprite2D.play("Shoot")
+			$Shoot_Sound.play()
+			spawn_projectile()
+			ammo_count -= 1
+			$Shooting_Cooldown.start(fire_rate)
 	
 	#DASH MECHANIC
 	#if Input.is_action_just_released("Dash"):
@@ -176,6 +186,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		$Reload_Speed.start(15.0)
 	elif body.is_in_group("AirUp"):
 		AirFilter.add_points(15)
+	
+	$Powerup_Sound.play()
 
 	body.queue_free()
 

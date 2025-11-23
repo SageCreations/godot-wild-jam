@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://blqfj2q3y2i83"]
+[gd_scene load_steps=47 format=3 uid="uid://blqfj2q3y2i83"]
 
 [ext_resource type="Script" uid="uid://ctjamdpwdlff1" path="res://scripts/player.gd" id="1_cxr5p"]
 [ext_resource type="Texture2D" uid="uid://cvjrbdfuxrdjn" path="res://assets/Player_Assets/Player_Single_Sprites/Death.png" id="1_e80uo"]
@@ -8,6 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://ctnua7sqho1u7" path="res://assets/Player_Assets/Player_Single_Sprites/Walk.png" id="3_tdg3f"]
 [ext_resource type="Texture2D" uid="uid://x50c1643kjlp" path="res://assets/Player_Assets/Player_Single_Sprites/Attack3_1.png" id="4_dtqjt"]
 [ext_resource type="Texture2D" uid="uid://dvoydby2gxgm" path="res://assets/Player_Assets/Player_Single_Sprites/Hurt.png" id="8_khinc"]
+[ext_resource type="AudioStream" uid="uid://bmqyd17wraecy" path="res://assets/sounds/Projectile(2).wav" id="9_bruh7"]
+[ext_resource type="AudioStream" uid="uid://shuvo8oj0yww" path="res://assets/sounds/Empty_Mag.wav" id="10_6eyey"]
+[ext_resource type="AudioStream" uid="uid://d3druk3ovpwme" path="res://assets/sounds/Power_Up.wav" id="11_d3wef"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ncpa"]
 atlas = ExtResource("1_e80uo")
@@ -371,6 +374,17 @@ one_shot = true
 [node name="Reload_Speed" type="Timer" parent="."]
 wait_time = 30.0
 one_shot = true
+
+[node name="Shoot_Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_bruh7")
+
+[node name="Click_Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_6eyey")
+volume_db = -8.0
+pitch_scale = 0.9
+
+[node name="Powerup_Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_d3wef")
 
 [connection signal="timeout" from="Reload_Timer" to="." method="_on_reload_timer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
