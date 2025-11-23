@@ -163,11 +163,30 @@ func _update_animation() -> void:
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group("PowerUPs"):
-		match body.name:
-			"2xMod":
-				double_points = true
-				await get_tree().create_timer(5.0).timeout
-				double_points = false
-		
-		body.queue_free()
+	if body.is_in_group("2xMod"):
+		double_points = true
+		$double_pts_timer.start(5.0)
+	elif body.is_in_group("FireRate"):
+		fire_rate = 0.1
+		$fire_rate_powerup_timer.start(10.0)
+	elif body.is_in_group("MaxAmmoUpgrade"):
+		max_ammo += 5
+	elif body.is_in_group("ReloadSpeed"):
+		reload_rate = 0.75
+		$Reload_Speed.start(15.0)
+	elif body.is_in_group("AirUp"):
+		AirFilter.add_points(15)
+
+	body.queue_free()
+
+
+func _on_double_pts_timer_timeout() -> void:
+	double_points = false
+
+
+func _on_fire_rate_powerup_timer_timeout() -> void:
+	fire_rate = 0.3
+
+
+func _on_reload_speed_timeout() -> void:
+	reload_rate = 1.5

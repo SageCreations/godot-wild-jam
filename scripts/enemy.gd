@@ -7,6 +7,8 @@ extends CharacterBody2D
 @export var gravity: float = 1200.0
 @export var jump_velocity: float = -600.0
 var _should_jump: bool = false
+var _dead: bool = false
+var rand: int
 
 @export var powerup_drops: Array[PackedScene]
 
@@ -48,7 +50,7 @@ func _logic_run(_delta: float) -> void:
 	if dir == 1.0:
 		position.x += Speed.get_speed() + 0.2
 
-	if (global_position.x > _player.global_position.x - 20) and (global_position.x < _player.global_position.x + 20):
+	if (global_position.x > _player.global_position.x - 50) and (global_position.x < _player.global_position.x + 50):
 		velocity.x = 0
 	else:
 		velocity.x = dir * speed
@@ -80,15 +82,15 @@ func _logic_attack(_delta: float) -> void:
 func _logic_dead(_delta: float) -> void:
 	velocity.x = 0
 	await anim.animation_finished
-	# TODO: randomize if powerup spawns or not
-	#if (randi() % 6) > 3:
-		#var new_power_up_scene = powerup_drops.pick_random()
-		#var power_up = new_power_up_scene.instantiate()
-		#get_parent().add_child(power_up)
-		#power_up.global_position = global_position
+	if _dead == false and rand >= 65:
+		var new_power_up_scene = powerup_drops.pick_random()
+		var power_up = new_power_up_scene.instantiate()
+		get_parent().add_child(power_up)
+		power_up.global_position = global_position
+		_dead = true
 	
 	if _player.double_points == true:
-		print("double points awarded")
+		#print("double points awarded")
 		Score.add_points(pts_awarded*2)
 	else:
 		Score.add_points(pts_awarded)
@@ -110,8 +112,8 @@ func _sub_health(amount: int) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#assert(powerup_drops.size() > 0, "needs items to drop at random")
-	pass
+	assert(powerup_drops.size() > 0, "needs items to drop at random")
+	rand = randi()%100
 
 
 func _apply_gravity(delta: float) -> void:
@@ -129,7 +131,7 @@ func _update_state() -> void:
 	if state == State.ATTACK:
 		return
 	
-	if (global_position.x > _player.global_position.x - 30) and (global_position.x < _player.global_position.x + 30):
+	if (global_position.x > _player.global_position.x - 50) and (global_position.x < _player.global_position.x + 50):
 		if _player.is_on_floor() and _player.is_hurt == false:
 			state = State.ATTACK
 			return

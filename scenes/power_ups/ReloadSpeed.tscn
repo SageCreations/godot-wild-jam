@@ -1,17 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1vsnyk5kbf8h"]
+[gd_scene load_steps=4 format=3 uid="uid://clfh8bi0g4dta"]
 
-[ext_resource type="Texture2D" uid="uid://dk0lxsjdfyhy4" path="res://assets/1 Icons/1/Skillicon1_02.png" id="1_ilk72"]
+[ext_resource type="Texture2D" uid="uid://01ga3akywh3n" path="res://assets/1 Icons/1/Skillicon1_17.png" id="1_jexpr"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hlpbj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ca62g"]
 
-[node name="2xMod" type="StaticBody2D" groups=["2xMod", "PowerUPs"]]
+[node name="ReloadSpeed" type="StaticBody2D" groups=["PowerUPs", "ReloadSpeed"]]
 collision_layer = 16
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("1_ilk72")
+texture = ExtResource("1_jexpr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 material = SubResource("CanvasItemMaterial_hlpbj")

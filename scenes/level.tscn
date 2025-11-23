@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cp2gglygkfgil"]
+[gd_scene load_steps=24 format=3 uid="uid://cp2gglygkfgil"]
 
 [ext_resource type="Script" uid="uid://4okqgof0ymse" path="res://scripts/level.gd" id="1_2r41h"]
 [ext_resource type="PackedScene" uid="uid://b4cat76sp3utr" path="res://scenes/bg_parallax.tscn" id="2_klq6b"]
@@ -13,6 +13,11 @@
 [ext_resource type="PackedScene" uid="uid://cixwkf3iqb5vu" path="res://scenes/Enemy_2.tscn" id="10_t1rx8"]
 [ext_resource type="PackedScene" uid="uid://c4bt7djq8rf5h" path="res://scenes/Enemy_3.tscn" id="11_t1rx8"]
 [ext_resource type="PackedScene" uid="uid://bknlyvh5bc3wv" path="res://scenes/UI/DecayBar.tscn" id="12_8iemx"]
+[ext_resource type="Texture2D" uid="uid://cpqgk83ykebhw" path="res://assets/1 Icons/1/Skillicon1_07.png" id="14_fpun6"]
+[ext_resource type="Texture2D" uid="uid://dk0lxsjdfyhy4" path="res://assets/1 Icons/1/Skillicon1_02.png" id="15_82cfe"]
+[ext_resource type="Texture2D" uid="uid://01ga3akywh3n" path="res://assets/1 Icons/1/Skillicon1_17.png" id="16_gunhw"]
+[ext_resource type="Texture2D" uid="uid://bfhp30i46cb5j" path="res://assets/1 Icons/1/Skillicon1_26.png" id="17_8gofh"]
+[ext_resource type="Texture2D" uid="uid://xfjowdkc5ikw" path="res://assets/1 Icons/1/Skillicon1_22.png" id="18_h6wmr"]
 
 [sub_resource type="GDScript" id="GDScript_t1rx8"]
 script/source = "extends Camera2D
@@ -197,6 +202,96 @@ player_path = NodePath("../Player")
 [node name="Speed_Increase" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
+
+[node name="Instructions" type="Node" parent="."]
+
+[node name="Input Intstructions" type="Label" parent="Instructions"]
+offset_left = 109.0
+offset_top = 291.0
+offset_right = 443.0
+offset_bottom = 480.0
+theme_override_font_sizes/font_size = 32
+text = "Movement: A / D
+Jump: W / Spacebar
+Shoot: S / Left Click
+Reload: R / Right Click"
+
+[node name="Input Intstructions2" type="Label" parent="Instructions"]
+offset_left = 529.0
+offset_top = 73.0
+offset_right = 1055.0
+offset_bottom = 262.0
+theme_override_font_sizes/font_size = 32
+text = "Score increases as you survive, 
+don't let your Air Filter reach zero."
+
+[node name="Label" type="Label" parent="Instructions"]
+offset_left = 1194.0
+offset_top = 17.0
+offset_right = 1290.0
+offset_bottom = 51.0
+theme_override_font_sizes/font_size = 24
+text = "Pickups:"
+
+[node name="airFilter" type="Sprite2D" parent="Instructions"]
+texture_filter = 1
+position = Vector2(1242, 76)
+texture = ExtResource("14_fpun6")
+
+[node name="Label" type="Label" parent="Instructions/airFilter"]
+offset_left = 20.0
+offset_top = -10.0
+offset_right = 86.0
+offset_bottom = 13.0
+text = "Air Filter"
+
+[node name="2Xmod" type="Sprite2D" parent="Instructions"]
+texture_filter = 1
+position = Vector2(1242, 114)
+texture = ExtResource("15_82cfe")
+
+[node name="Label" type="Label" parent="Instructions/2Xmod"]
+offset_left = 20.0
+offset_top = -10.0
+offset_right = 86.0
+offset_bottom = 13.0
+text = "2x Points"
+
+[node name="reloadspeed" type="Sprite2D" parent="Instructions"]
+texture_filter = 1
+position = Vector2(1243, 154)
+texture = ExtResource("16_gunhw")
+
+[node name="Label" type="Label" parent="Instructions/reloadspeed"]
+offset_left = 20.0
+offset_top = -10.0
+offset_right = 86.0
+offset_bottom = 13.0
+text = "Reload Speed Increase"
+
+[node name="maxammoup" type="Sprite2D" parent="Instructions"]
+texture_filter = 1
+position = Vector2(1242, 194)
+texture = ExtResource("17_8gofh")
+
+[node name="Label" type="Label" parent="Instructions/maxammoup"]
+offset_left = 20.0
+offset_top = -10.0
+offset_right = 86.0
+offset_bottom = 13.0
+text = "Max Ammo Upgrade"
+
+[node name="Firerate" type="Sprite2D" parent="Instructions"]
+texture_filter = 1
+position = Vector2(1242, 234)
+texture = ExtResource("18_h6wmr")
+
+[node name="Label" type="Label" parent="Instructions/Firerate"]
+offset_left = 20.0
+offset_top = -10.0
+offset_right = 86.0
+offset_bottom = 13.0
+text = "Fire Rate Increase"
 
 [connection signal="body_entered" from="Camera2D/garbage_collector_behind" to="Camera2D/garbage_collector_behind" method="_on_body_entered"]
 [connection signal="body_entered" from="Camera2D/garbage_collector_below" to="Camera2D/garbage_collector_below" method="_on_body_entered"]

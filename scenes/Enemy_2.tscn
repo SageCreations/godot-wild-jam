@@ -1,10 +1,12 @@
-[gd_scene load_steps=80 format=3 uid="uid://cixwkf3iqb5vu"]
+[gd_scene load_steps=82 format=3 uid="uid://cixwkf3iqb5vu"]
 
 [ext_resource type="Script" uid="uid://dayfmixua6enf" path="res://scripts/enemy.gd" id="1_1ntyx"]
 [ext_resource type="Texture2D" uid="uid://cbwgpxo4olavi" path="res://assets/Zombies/Zombie Man/Attack_1.png" id="2_6twtw"]
 [ext_resource type="PackedScene" uid="uid://c1vsnyk5kbf8h" path="res://scenes/power_ups/2X_mod.tscn" id="2_gwthp"]
+[ext_resource type="PackedScene" uid="uid://c1i5e4o6atnsn" path="res://scenes/power_ups/FireRate.tscn" id="3_1as5b"]
 [ext_resource type="Texture2D" uid="uid://cygxkc1bbe5bs" path="res://assets/Zombies/Zombie Man/Attack_2.png" id="3_4rlj0"]
 [ext_resource type="Texture2D" uid="uid://b3iqhdgol5jn0" path="res://assets/Zombies/Zombie Man/Attack_3.png" id="4_1ntyx"]
+[ext_resource type="PackedScene" uid="uid://clfh8bi0g4dta" path="res://scenes/power_ups/ReloadSpeed.tscn" id="4_pjwet"]
 [ext_resource type="Texture2D" uid="uid://ci5bjqla65l26" path="res://assets/Zombies/Zombie Man/Bite.png" id="5_1ntyx"]
 [ext_resource type="Texture2D" uid="uid://c4ukqf8a6m44r" path="res://assets/Zombies/Zombie Man/Dead.png" id="5_gwthp"]
 [ext_resource type="Texture2D" uid="uid://b5gi2t7vu4jru" path="res://assets/Zombies/Zombie Man/Hurt.png" id="6_fgjx2"]
@@ -526,7 +528,7 @@ collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_1ntyx")
 health = 1
-powerup_drops = Array[PackedScene]([ExtResource("2_gwthp")])
+powerup_drops = Array[PackedScene]([ExtResource("2_gwthp"), ExtResource("3_1as5b"), ExtResource("4_pjwet")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
